@@ -1,0 +1,33 @@
+//
+//  TaskRow.swift
+//  ProjectManager
+//
+//  Created by Mikihisa Saito on 2025/09/12.
+//
+
+import SwiftUI
+
+struct TaskRow: View {
+    var body: some View {
+        HStack{
+            VStack(alignment: .leading){
+                Text("Task name")
+                    .font(.headline)
+                Text("Due Date")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+            
+            Spacer()
+            
+            // ToDo: Add Button action
+            Button(action: {}){
+                Image(systemName: "ellipsis")
+            }
+        }
+    }
+}
+
+#Preview {
+    TaskRow()
+}
