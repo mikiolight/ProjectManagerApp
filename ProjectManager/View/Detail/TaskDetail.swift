@@ -9,7 +9,36 @@ import SwiftUI
 
 struct TaskDetail: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading){
+            
+            // Todo: Add button to Change Task
+             
+            DetailRow(rowHead: "Task", rowContent: "Task Name")
+            DetailRow(rowHead: "Task", rowContent: "Task Name")
+            DetailRow(rowHead: "Task", rowContent: "Task Name")
+            DetailRow(rowHead: "Task", rowContent: "Task Name")
+            DetailRow(rowHead: "Task", rowContent: "Task Name")
+            
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding()
+    }
+}
+
+struct DetailRow: View{
+    let rowHead: String
+    let rowContent: String
+    
+    var body: some View{
+        HStack{
+            VStack(alignment: .leading){
+                Text(rowHead)
+                    .font(.footnote)
+                Text(rowContent)
+                    .font(.headline)
+            }
+            .padding()
+        }
     }
 }
 

@@ -14,7 +14,7 @@ struct TaskRow: View {
                 Text("Task name")
                     .font(.headline)
                 Text("Due Date")
-                    .font(.subheadline)
+                    .font(.footnote)
                     .foregroundStyle(.secondary)
             }
             
