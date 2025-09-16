@@ -31,5 +31,4 @@ public final class Ticket: Identifiable, Hashable{
         self.completeDate = completeDate
         self.Status = Status
     }
-    
 }
