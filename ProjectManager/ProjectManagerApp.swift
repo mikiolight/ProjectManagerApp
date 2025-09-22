@@ -9,7 +9,14 @@ import SwiftUI
 
 @main
 struct ProjectManagerApp: App {
-    var body: some Scene {
+//	var modelContainer: ModelContainer = {
+//		let schema = Schema([
+//			Project.self,
+//			Ticket.self,
+//			Note.self,
+//		])
+//	}
+	var body: some Scene {
         WindowGroup {
             ContentView()
         }
