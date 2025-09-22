@@ -1,10 +1,3 @@
-//
-//  ProjectManagerUITests.swift
-//  ProjectManagerUITests
-//
-//  Created by Mikihisa Saito on 2025/09/12.
-//
-
 import XCTest
 
 final class ProjectManagerUITests: XCTestCase {

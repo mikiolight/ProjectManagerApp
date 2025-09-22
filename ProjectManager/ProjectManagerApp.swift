@@ -1,24 +1,23 @@
-//
-//  ProjectManagerApp.swift
-//  ProjectManager
-//
-//  Created by Mikihisa Saito on 2025/09/12.
-//
-
 import SwiftUI
+import SwiftData
 
 @main
 struct ProjectManagerApp: App {
-//	var modelContainer: ModelContainer = {
-//		let schema = Schema([
-//			Project.self,
-//			Ticket.self,
-//			Note.self,
-//		])
-//	}
+	let modelContainer: ModelContainer
+
+	init() {
+		let schema = Schema([
+			Project.self,
+			Ticket.self,
+			Note.self,
+		])
+		self.modelContainer = try! ModelContainer(for: schema)
+	}
+
 	var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
-    }
+		WindowGroup {
+			ContentView()
+				.modelContainer(modelContainer)
+		}
+	}
 }

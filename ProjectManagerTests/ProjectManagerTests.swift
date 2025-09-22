@@ -1,10 +1,3 @@
-//
-//  ProjectManagerTests.swift
-//  ProjectManagerTests
-//
-//  Created by Mikihisa Saito on 2025/09/12.
-//
-
 import Testing
 @testable import ProjectManager
 

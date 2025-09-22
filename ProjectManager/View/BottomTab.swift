@@ -1,16 +1,9 @@
-//
-//  ListButtomTab.swift
-//  ProjectManager
-//
-//  Created by Mikihisa Saito on 2025/09/13.
-//
-
 import SwiftUI
 
-struct ListButtomTab: View {
+struct ListBottomTab: View {
     var body: some View {
         TabView{
-            ListTopTab()
+			TicketForm()
                 .tabItem{
                     Image(systemName: "plus")
                     Text("Add Project")
@@ -25,5 +18,5 @@ struct ListButtomTab: View {
 }
 
 #Preview {
-    ListButtomTab()
+    ListBottomTab()
 }
