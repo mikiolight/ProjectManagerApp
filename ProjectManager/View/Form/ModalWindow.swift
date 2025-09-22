@@ -5,6 +5,7 @@
 //  Created by Mikihisa Saito on 2025/09/13.
 //
 
+// ModalWidow to select someItems
 import SwiftUI
 
 struct ModalWindow: View {
