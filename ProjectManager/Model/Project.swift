@@ -13,7 +13,12 @@ public final class Project: Identifiable, Hashable{
 
 	var projectDetails: String?
 
-	init(id: UUID = UUID(), tickets: [Ticket], projectName: String, projectDetails: String? = nil) {
+	init(
+		id: UUID = UUID(),
+		tickets: [Ticket],
+		projectName: String,
+		projectDetails: String? = nil
+	) {
 		self.id = id
 		self.tickets = tickets
 		self.projectName = projectName

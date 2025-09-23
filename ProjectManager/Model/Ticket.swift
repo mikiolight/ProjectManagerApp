@@ -11,26 +11,41 @@ public final class Ticket: Identifiable, Hashable{
 
 	var ticketDetail: String?
 
-	var StartDate: Date?
+	var startDate: Date?
 
 	var dueDate: Date?
 
 	var completeDate: Date?
 
-	var Status: String
+	var status: TicketStatus
 
 	@Relationship(deleteRule: .cascade ,inverse: \Note.ticket)
 
 	var notes: [Note] = []
 
-	init(id: UUID = UUID(), project: Project, ticketName: String, ticketDetail: String? = "", StartDate: Date? = nil, dueDate: Date? = nil, completeDate: Date? = nil, Status: String) {
+	init(
+		id: UUID = UUID(),
+		project: Project,
+		ticketName: String,
+		ticketDetail: String? = "",
+		startDate: Date? = Date(),
+		dueDate: Date?,
+		completeDate: Date?,
+		status: TicketStatus = .notStarted
+	) {
 		self.id = id
 		self.project = project
 		self.ticketName = ticketName
 		self.ticketDetail = ticketDetail
-		self.StartDate = StartDate
+		self.startDate = startDate
 		self.dueDate = dueDate
 		self.completeDate = completeDate
-		self.Status = Status
+		self.status = status
 	}
+}
+
+enum TicketStatus: String, CaseIterable, Codable{
+	case notStarted = "Not Started"
+	case inProgress = "In Progress"
+	case complete = "Complete"
 }

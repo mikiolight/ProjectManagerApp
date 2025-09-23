@@ -1,22 +1,24 @@
 import SwiftUI
 
 struct ListBottomTab: View {
-    var body: some View {
-        TabView{
+	var tickets: [Ticket]
+
+	var body: some View {
+		TabView{
 			TicketForm()
-                .tabItem{
-                    Image(systemName: "plus")
-                    Text("Add Project")
-                }
-            ListTopTab()
-                .tabItem{
-                    Image(systemName: "list.bullet")
-                    Text("List")
-                }
-        }
-    }
+				.tabItem{
+					Image(systemName: "plus")
+					Text("Add Project")
+				}
+			ListTopTab(tickets: tickets)
+				.tabItem{
+					Image(systemName: "list.bullet")
+					Text("List")
+				}
+		}
+	}
 }
 
 #Preview {
-    ListBottomTab()
+	ListBottomTab(tickets: SampleData.getProjectWithTickets().tickets)
 }

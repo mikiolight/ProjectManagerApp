@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct NoteDetail: View {
-    let taskName: String
+    let ticketName: String
     let note: String
     
     var body: some View {
@@ -13,7 +13,7 @@ struct NoteDetail: View {
                 
                 VStack(alignment: .leading){
                     Text(Date().formatted())
-                    Text(taskName)
+                    Text(ticketName)
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
@@ -30,5 +30,5 @@ struct NoteDetail: View {
 }
 
 #Preview {
-    NoteDetail(taskName: "TaskName", note: "some note")
+    NoteDetail(ticketName: "TaskName", note: "some note")
 }

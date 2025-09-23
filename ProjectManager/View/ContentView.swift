@@ -2,8 +2,6 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-	// @State private var viewModel =
-
 	@Environment(\.modelContext) private var modelContext
 
 	@Query private var projects: [Project]
@@ -11,10 +9,9 @@ struct ContentView: View {
 	@Query private var notes:[Note]
 
 	var body: some View {
-		ListBottomTab()
+		ListBottomTab(tickets: tickets)
 	}
 }
-
 
 #Preview {
 	ContentView()

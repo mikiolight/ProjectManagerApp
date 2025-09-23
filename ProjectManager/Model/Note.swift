@@ -15,7 +15,13 @@ public final class Note: Identifiable, Hashable {
 
 	// var Attachment: ファイル添付
 
-	init(id: UUID = UUID(), ticket: Ticket,note: String = "", url: URL? = nil, madeDateTime: Date = Date()) {
+	init(
+		id: UUID = UUID(),
+		ticket: Ticket,
+		note: String = "",
+		url: URL? = nil,
+		madeDateTime: Date = Date()
+	) {
 		self.id = id
 		self.ticket = ticket
 		self.note = note

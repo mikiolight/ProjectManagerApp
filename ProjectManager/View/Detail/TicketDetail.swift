@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct TaskDetail: View {
+struct TicketDetail: View {
     var body: some View {
         
         VStack(alignment: .leading){
@@ -32,7 +32,7 @@ struct TaskDetail: View {
                 .font(.footnote)
                 .padding()
             List{
-                NoteDetail(taskName: "Task Name", note: "Some Note\nWe can add multiple lines")
+                NoteDetail(ticketName: "Task Name", note: "Some Note\nWe can add multiple lines")
             }.listStyle(.plain)
             
             Spacer()
@@ -44,5 +44,5 @@ struct TaskDetail: View {
 
 
 #Preview {
-    TaskDetail()
+    TicketDetail()
 }
