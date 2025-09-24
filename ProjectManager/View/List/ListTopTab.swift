@@ -2,8 +2,11 @@ import SwiftUI
 
 struct ListTopTab: View {
 	@State var selectedTab: TicketStatus = .notStarted
-	let statusTabs = TicketStatus.allCases
 	var tickets: [Ticket]
+
+	private var filteredTickets: [Ticket] {
+		tickets.filter{ $0.status == selectedTab}
+	}
 
 	var body: some View {
 		let filteredTickets = tickets.filter {
@@ -11,7 +14,7 @@ struct ListTopTab: View {
 		}
 		VStack{
 			Picker("tab", selection: $selectedTab){
-				ForEach(statusTabs, id: \.self){ tab in
+				ForEach(TicketStatus.allCases, id: \.self){ tab in
 					Text(tab.rawValue)
 				}
 			}
@@ -19,8 +22,11 @@ struct ListTopTab: View {
 			.padding()
 
 			if filteredTickets.isEmpty{
-				Text("No tickets for this tab")
-				Spacer()
+				ContentUnavailableView(
+					"No tickets for this tab",
+					systemImage: "ticket",
+					description: Text("There is no ticket with this status.")
+				)
 			}else{
 				TicketList(tickets: filteredTickets)
 			}
