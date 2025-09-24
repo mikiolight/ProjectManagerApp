@@ -2,8 +2,11 @@
 import SwiftUI
 
 struct ModalWindow: View {
+    @Bind projects: [Project]
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List(projects){ project in
+            Text(project.projectName)
+    		}.listStyle(.plain)
     }
 }
 
