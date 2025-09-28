@@ -18,7 +18,7 @@ struct ProjectPickerField: View {
 			.padding(.horizontal)
 			.background(
 				RoundedRectangle(cornerRadius: 8)
-					.stroke(Color.secondary.opacity(0.4))
+					.stroke(Color(.systemGray4), lineWidth: 1)
 			)
 		}
 		.buttonStyle(PlainButtonStyle())

@@ -13,8 +13,8 @@ public final class Project: Identifiable, Hashable, Equatable{
 	init(
 		id: UUID = UUID(),
 		tickets: [Ticket],
-		projectName: String,
-		projectDetails: String? = nil
+		projectName: String = "",
+		projectDetails: String? = ""
 	) {
 		self.id = id
 		self.tickets = tickets

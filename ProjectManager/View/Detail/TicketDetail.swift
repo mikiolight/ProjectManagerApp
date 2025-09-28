@@ -1,16 +1,16 @@
 import SwiftUI
 
 struct TicketDetail: View {
+
     var body: some View {
-        
         VStack(alignment: .leading){
             
             // Todo: Add Split to Change Task Button
             if(true){
                 HStack{
-                    BackIcon()
-                    ForwardIcon()
-                    CompleteIcon()
+                    BackButtonIcon()
+                    ForwardButtonIcon()
+                    CompleteButtonIcon()
                 }
             }else if(true){
                 HStack{

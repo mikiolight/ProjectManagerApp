@@ -13,9 +13,17 @@ struct ModalWindow: View {
 		NavigationStack {
 			VStack(spacing: 0) {
 
-				Button(action: {
-					// TODO: 新規作成の処理をここに書く
-				}) {
+//				Button(action: {
+//					// TODO: 新規作成の処理をここに書く
+//				}) {
+//					HStack {
+//						Image(systemName: "pencil")
+//						Text("New")
+//					}
+//					.frame(maxWidth: .infinity, alignment: .leading)
+//					.padding()
+//				}
+				NavigationLink(destination: ProjectForm()){
 					HStack {
 						Image(systemName: "pencil")
 						Text("New")
@@ -67,8 +75,37 @@ struct ModalWindow: View {
 
 
 #Preview {
-	ModalWindow(
-		isPresented: .constant(true),
-		selectedItem: .constant(SampleData.projects.first)
-	)
+	// プレビュー用の状態を管理するラッパービュー
+	struct PreviewWrapper: View {
+		@State private var isPresented = true
+		// 初期値を設定し、プレビュー内で変更可能にする
+		@State private var selectedItem: Project? = SampleData.projects.first
+
+		var body: some View {
+			ModalWindow(
+				isPresented: $isPresented,
+				selectedItem: $selectedItem
+			)
+		}
+	}
+	let container: ModelContainer = {
+		let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
+		do{
+			let container = try ModelContainer(
+				for: Project.self,
+				Ticket.self,
+				Note.self,
+				configurations: configuration
+			)
+			for project in SampleData.projects {
+				container.mainContext.insert(project)
+			}
+			return container
+		} catch {
+			fatalError("Failed to create container for preview: \(error.localizedDescription)")
+		}
+	}()
+
+	return PreviewWrapper()
+		.modelContainer(container)
 }

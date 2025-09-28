@@ -1,10 +1,3 @@
-//
-//  TicketForm.swift
-//  ProjectManager
-//
-//  Created by mikiolight on 2025/09/13.
-//
-
 import SwiftUI
 import SwiftData
 
@@ -13,43 +6,72 @@ struct TicketForm: View {
 	@Environment(\.dismiss) private var dismiss
 
 	@Query private var projects: [Project]
-	
+
 	@State private var isModalShown: Bool = false
 	@State private var selectedItem: Project? = nil
-	@State private var ticketName: String = ""
-	@State private var ticketDetail: String = ""
-	@State private var startDate: Date?
-	@State private var dueDate: Date?
-	@State private var status: TicketStatus = .notStarted
+	@State private var newTicketName: String = ""
+	@State private var newTicketDetail: String = ""
+	@State private var newStartDate: Date? = Date()
+	@State private var newDueDate: Date?
+	@State private var newStatus: TicketStatus = .notStarted
+
+	private var isFormValid: Bool {
+		!newTicketName.isEmpty && selectedItem != nil
+	}
 
 	var body: some View {
-		VStack{
-			VStack(alignment: .leading)
+		VStack(alignment: .leading)
+		{
+			Text("Project")
+			ProjectPickerField(selected: $selectedItem)
 			{
-				Text("Project")
-				ProjectPickerField(selected: $selectedItem)
-				{
-					isModalShown = true
+				isModalShown = true
+			}
+		}
+		.padding()
+		.sheet(isPresented: $isModalShown)
+		{
+			ModalWindow(
+				isPresented: $isModalShown,
+				selectedItem: $selectedItem
+			)
+		}
+
+		FormRow(contentTitle: "Ticket*", placeholder: "Ticket Name", value: $newTicketName)
+		FormRow(contentTitle: "Description", placeholder: "Ticket Detail", value: $newTicketDetail)
+		FormDateRow(contentTitle: "Started", value: $newStartDate)
+		FormDateRow(contentTitle: "Due", value: $newDueDate)
+
+		HStack{
+			VStack(alignment: .leading){
+				Text("Status*")
+				Picker("Status*", selection: $newStatus){
+					Text("Not Started").tag(TicketStatus.notStarted)
+					Text("In Progress").tag(TicketStatus.inProgress)
+					Text("Completed").tag(TicketStatus.complete)
 				}
 			}
-			.padding()
-			.sheet(isPresented: $isModalShown)
-			{
-				ModalWindow(
-					isPresented: $isModalShown,
-					selectedItem: $selectedItem
-				)
-			}
-
-			VStack(alignment: .leading)
-			{
-				Text("Ticket*")
-				TextField("Ticket Name", text: $ticketName)
-			}
-			.padding()
 
 			Spacer()
-			
+		}
+		.padding()
+		.navigationTitle(Text("New Ticket"))
+		.navigationBarTitleDisplayMode(.inline)
+		.toolbar{
+			ToolbarItem(placement: .bottomBar)
+			{
+				HStack{
+					Button("Cancel"){
+						dismiss()
+					}
+
+					Spacer()
+
+					Button("Save"){
+						saveTicket()
+					}
+				}
+			}
 		}.padding()
 	}
 
@@ -57,12 +79,12 @@ struct TicketForm: View {
 		guard let project = selectedItem else {return}
 		let newTicket = Ticket(
 			project: project,
-			ticketName: ticketName,
-			ticketDetail: ticketDetail,
-			startDate: startDate,
-			dueDate: dueDate,
+			ticketName: newTicketName,
+			ticketDetail: newTicketDetail,
+			startDate: newStartDate,
+			dueDate: newDueDate,
 			completeDate: nil,
-			status: status
+			status: newStatus
 		)
 		modelContext.insert(newTicket)
 		dismiss()
@@ -70,6 +92,24 @@ struct TicketForm: View {
 }
 
 #Preview {
+	// Preview用のContainer設定
+	let container: ModelContainer={
+		let configuration = ModelConfiguration(isStoredInMemoryOnly:true)
+		do{
+			// コンテナの作成
+			let container = try ModelContainer(for: Project.self, Ticket.self, Note.self, configurations: configuration)
+
+			// サンプル挿入
+			for project in SampleData.projects {
+				container.mainContext.insert(project)
+			}
+
+			return container
+		}catch{
+			fatalError("Failed to create container for preview: \(error.localizedDescription)")
+		}
+	}()
+
 	TicketForm()
-		.modelContainer(for: [Project.self, Ticket.self])
+		.modelContainer(container)
 }
