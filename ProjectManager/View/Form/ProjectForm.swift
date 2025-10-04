@@ -39,6 +39,8 @@ struct ProjectForm: View {
 				}
 			}
 		}
+		.navigationTitle("New Project")
+		.navigationBarTitleDisplayMode(.inline)
 	}
 	private func saveProject(){
 		let newProject = Project(

@@ -21,6 +21,6 @@ struct ProjectPickerField: View {
 					.stroke(Color(.systemGray4), lineWidth: 1)
 			)
 		}
-		.buttonStyle(PlainButtonStyle())
+		.buttonStyle(.plain)
 	}
 }

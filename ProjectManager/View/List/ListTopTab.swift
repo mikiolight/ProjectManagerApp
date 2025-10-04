@@ -35,5 +35,5 @@ struct ListTopTab: View {
 }
 
 #Preview {
-	ListTopTab(tickets: SampleData.getProjectWithTickets().tickets)
+	ListTopTab(tickets: SampleData.project1.tickets)
 }

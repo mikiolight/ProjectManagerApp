@@ -2,8 +2,8 @@ import SwiftUI
 
 struct NoteDetail: View {
     let ticketName: String
-    let note: String
-    
+    let note: Note
+
     var body: some View {
         VStack{
             HStack(){
@@ -12,7 +12,7 @@ struct NoteDetail: View {
                     .font(.largeTitle)
                 
                 VStack(alignment: .leading){
-                    Text(Date().formatted())
+					Text(note.madeDateTime.shortDateTime())
                     Text(ticketName)
                         .font(.footnote)
                         .foregroundStyle(.secondary)
@@ -21,7 +21,7 @@ struct NoteDetail: View {
                 Spacer()
             }
            
-            Text(note)
+			Text(note.note)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
             // Todo: Add Link for edit and delete
@@ -30,5 +30,11 @@ struct NoteDetail: View {
 }
 
 #Preview {
-    NoteDetail(ticketName: "TaskName", note: "some note")
+	do{
+		SampleData.setupRelations()
+	}
+	return NoteDetail(
+		ticketName: SampleData.ticket1.ticketName,
+		note: SampleData.ticket1.notes.first!
+	)
 }

@@ -3,7 +3,7 @@ import SwiftUI
 import SwiftData
 
 struct ModalWindow: View {
-	@Query var projects: [Project]
+	@Query(sort: \Project.projectName) var projects: [Project]
 
 	@Binding var isPresented: Bool
 	@Binding var selectedItem: Project?
@@ -12,17 +12,6 @@ struct ModalWindow: View {
 	var body: some View {
 		NavigationStack {
 			VStack(spacing: 0) {
-
-//				Button(action: {
-//					// TODO: 新規作成の処理をここに書く
-//				}) {
-//					HStack {
-//						Image(systemName: "pencil")
-//						Text("New")
-//					}
-//					.frame(maxWidth: .infinity, alignment: .leading)
-//					.padding()
-//				}
 				NavigationLink(destination: ProjectForm()){
 					HStack {
 						Image(systemName: "pencil")
@@ -36,10 +25,6 @@ struct ModalWindow: View {
 					ForEach(projects, id: \.id) { project in
 						Button(action:{
 							selectedItem = project
-							print("tapconsole" + project.projectName)
-							if let name = selectedItem?.projectName {
-								print(name)
-							}
 						}){
 							HStack {
 								Image(systemName: selectedItem?.id == project.id ? "record.circle" : "circle")
@@ -68,6 +53,7 @@ struct ModalWindow: View {
 				.padding()
 			}
 			.searchable(text: $searchText, prompt: "Search")
+			.navigationTitle("Select Project")
 			.navigationBarTitleDisplayMode(.inline)
 		}
 	}

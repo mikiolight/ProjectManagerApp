@@ -2,85 +2,111 @@
 import Foundation
 
 struct SampleData {
-	// サンプルプロジェクト1の作成
-	static let project1 = Project(
-		id: UUID(),
-		tickets: [], // チケットは後から追加
-		projectName: "モバイルアプリ開発"
-	)
+	// ノート
+	static let note1: Note = {
+		let n = Note(
+			id: UUID(),
+			ticket: ticket1,
+			note: "ログイン画面の仕様メモ",
+			url: nil,
+			madeDateTime: Date()
+		)
+		return n
+	}()
 
-	// サンプルチケットの作成
-	static let ticket1 = Ticket(
-		id: UUID(),
-		project: project1,
-		ticketName: "ログイン画面の実装",
-		dueDate: Date(),
-		completeDate: nil,
-		status: .notStarted
-	)
+	static let note2: Note = {
+		let n = Note(
+			id: UUID(),
+			ticket: ticket2,
+			note: "UIデザインの参考URLを追加",
+			url: nil,
+			madeDateTime: Date().addingTimeInterval(3600)
+		)
+		return n
+	}()
 
-	static let ticket2 = Ticket(
-		id: UUID(),
-		project: project1,
-		ticketName: "設定画面のUIデザイン",
-		dueDate: Date().addingTimeInterval(86400 * 2), // 2日後
-		completeDate: nil,
-		status: .inProgress
-	)
+	static let note3: Note = {
+		let n = Note(
+			id: UUID(),
+			ticket: ticket1,
+			note: "バックエンドは後でやる",
+			url: nil,
+			madeDateTime: Date()
+		)
+		return n
+	}()
 
-	// サンプルノートの作成
-	static let note1 = Note(
-		id: UUID(),
-		ticket: ticket1,
-		note: "ログイン画面の仕様メモ",
-		url: nil,
-		madeDateTime: Date()
-	)
+	static let note4: Note = {
+		let n = Note(
+			id: UUID(),
+			ticket: ticket1,
+			note: "ログイン画面の仕様メモ2",
+			url: nil,
+			madeDateTime: Date()
+		)
+		return n
+	}()
 
-	static let note2 = Note(
-		id: UUID(),
-		ticket: ticket2,
-		note: "UIデザインの参考URLを追加",
-		url: nil,
-		madeDateTime: Date().addingTimeInterval(3600)
-	)
+    // チケット
+    static let ticket1: Ticket = {
+        let t = Ticket(
+            id: UUID(),
+            project: project1,
+            ticketName: "ログイン画面の実装",
+            ticketDetail: "",
+            startDate: Date(),
+            dueDate: Date(),
+            completeDate: nil,
+            status: .notStarted
+        )
+        return t
+    }()
 
-	// プロジェクトにチケットを関連付ける
-	static func getProjectWithTickets() -> Project {
-		let proj = project1
-		proj.tickets = [ticket1, ticket2]
-		return proj
-	}
+    static let ticket2: Ticket = {
+        let t = Ticket(
+            id: UUID(),
+            project: project1,
+            ticketName: "設定画面のUIデザイン",
+            ticketDetail: "",
+            startDate: Date(),
+            dueDate: Date().addingTimeInterval(86400 * 2),
+            completeDate: nil,
+            status: .inProgress
+        )
+        return t
+    }()
 
-	// チケットにノートを関連付け
-	static func getTicket1WithNotes() -> Ticket {
-		let t = ticket1
-		t.notes = [note1]
-		return t
-	}
-	static func getTicket2WithNotes() -> Ticket {
-		let t = ticket2
-		t.notes = [note2]
-		return t
-	}
-
-	// プレビュー用のプロジェクト配列
-	static let projects: [Project] = [
-		getProjectWithTickets(),
-		Project(
+	// プロジェクト
+	static let project1: Project = {
+		let p = Project(
 			id: UUID(),
 			tickets: [],
-			projectName: "Webサイトリニューアル"
+			projectName: "モバイルアプリ開発",
+			projectDetails: nil
 		)
-	]
+		return p
+	}()
 
-	// プレビュー用ノート配列
-	static let notes: [Note] = [note1, note2]
+    // 関連付け（notes, tickets）をインスタンス生成後にセット
+    static func setupRelations() {
+        ticket1.notes = [note1, note4]
+        ticket2.notes = [note2, note3]
+        project1.tickets = [ticket1, ticket2]
+    }
 
-	// プロジェクトにチケット（ノート付き）を関連付ける
-	static func getProjectWithTicketsAndNotes() -> Project {
-		let proj = project1
-		proj.tickets = [getTicket1WithNotes(), getTicket2WithNotes()]
-		return proj
-	}
+    // プレビュー・テスト用データ
+    static let projects: [Project] = {
+        setupRelations()
+        return [
+            project1,
+            Project(
+                id: UUID(),
+                tickets: [],
+                projectName: "Webサイトリニューアル",
+                projectDetails: nil
+            )
+        ]
+    }()
+
+    static let notes: [Note] = [note1, note2]
 }

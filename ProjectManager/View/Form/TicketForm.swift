@@ -1,11 +1,10 @@
 import SwiftUI
 import SwiftData
+import UIKit
 
 struct TicketForm: View {
 	@Environment(\.modelContext) private var modelContext
 	@Environment(\.dismiss) private var dismiss
-
-	@Query private var projects: [Project]
 
 	@State private var isModalShown: Bool = false
 	@State private var selectedItem: Project? = nil
@@ -72,7 +71,18 @@ struct TicketForm: View {
 					}
 				}
 			}
-		}.padding()
+		}
+		.padding()
+//#if canImport(UIKit)
+		.toolbar{
+			ToolbarItem(placement: .keyboard){
+				Spacer()
+				Button("Done"){
+					hideKeyboard()
+				}
+			}
+		}
+//#endif
 	}
 
 	private func saveTicket(){
@@ -87,9 +97,19 @@ struct TicketForm: View {
 			status: newStatus
 		)
 		modelContext.insert(newTicket)
+		project.tickets.append(newTicket)
 		dismiss()
 	}
 }
+
+//#if canImport(UIKit)
+extension View{
+	func hideKeyboard() {
+		UIApplication.shared
+			.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+	}
+}
+//#endif
 
 #Preview {
 	// Preview用のContainer設定
