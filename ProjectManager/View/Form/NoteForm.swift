@@ -52,7 +52,6 @@ struct NoteForm: View {
 			madeDateTime: dateTimeNow
 		)
 		modelContext.insert(newNote)
-		parentTicket.notes.append(newNote)
 		dismiss()
 	}
 }
