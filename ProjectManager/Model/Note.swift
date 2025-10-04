@@ -2,7 +2,7 @@ import Foundation
 import SwiftData
 
 @Model
-public final class Note: Identifiable, Hashable, Equatable{
+public final class Note: Identifiable, Hashable {
 
 	@Attribute(.unique) public var id: UUID
 	var ticket: Ticket
