@@ -3,17 +3,13 @@ import SwiftData
 
 @Model
 public final class Note: Identifiable, Hashable {
+
 	@Attribute(.unique) public var id: UUID
-
 	var ticket: Ticket
-
 	var note: String
-
 	var url: URL?
-
 	var madeDateTime: Date
-
-	// var Attachment: ファイル添付
+	// TODO: var Attachment: ファイル添付
 
 	init(
 		id: UUID = UUID(),
@@ -27,5 +23,10 @@ public final class Note: Identifiable, Hashable {
 		self.note = note
 		self.url = url
 		self.madeDateTime = madeDateTime
+	}
+
+	// 左右が等しいことをidで判断する
+	public static func == (lhs: Note, rhs: Note) -> Bool {
+		lhs.id == rhs.id
 	}
 }

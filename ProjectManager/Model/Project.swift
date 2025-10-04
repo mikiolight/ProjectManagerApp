@@ -2,26 +2,28 @@ import Foundation
 import SwiftData
 
 @Model
-public final class Project: Identifiable, Hashable{
+public final class Project: Identifiable, Hashable {
+
 	@Attribute(.unique) public var id: UUID
-
-	@Relationship(deleteRule: .cascade, inverse: \Ticket.project)
-
-	var tickets: [Ticket] = []
-
 	var projectName: String
-
 	var projectDetails: String?
+	@Relationship(deleteRule: .cascade, inverse: \Ticket.project)
+	var tickets: [Ticket] = []
 
 	init(
 		id: UUID = UUID(),
 		tickets: [Ticket],
-		projectName: String,
-		projectDetails: String? = nil
+		projectName: String = "",
+		projectDetails: String? = ""
 	) {
 		self.id = id
 		self.tickets = tickets
 		self.projectName = projectName
 		self.projectDetails = projectDetails
+	}
+
+	// 左右が等しいことをidで判断する
+	public static func == (lhs: Project, rhs: Project) -> Bool {
+		lhs.id == rhs.id
 	}
 }

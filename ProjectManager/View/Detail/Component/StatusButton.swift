@@ -1,7 +1,7 @@
 import SwiftUI
 
 // Button View
-struct BackIcon: View{
+struct BackButtonIcon: View{
     var body: some View{
         VStack{
             // Icon
@@ -21,7 +21,7 @@ struct BackIcon: View{
     }
 }
 
-struct ForwardIcon: View{
+struct ForwardButtonIcon: View{
     var body: some View{
         VStack{
             // Icon
@@ -41,7 +41,7 @@ struct ForwardIcon: View{
     }
 }
 
-struct CompleteIcon: View{
+struct CompleteButtonIcon: View{
     var body: some View{
         VStack{
             Image(systemName: "checkmark.circle")
@@ -57,9 +57,9 @@ struct CompleteIcon: View{
 
 #Preview {
     HStack{
-        BackIcon()
-        ForwardIcon()
-        CompleteIcon()
+        BackButtonIcon()
+        ForwardButtonIcon()
+        CompleteButtonIcon()
         Spacer()
     }.padding()
 }
