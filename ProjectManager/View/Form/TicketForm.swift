@@ -97,7 +97,6 @@ struct TicketForm: View {
 			status: newStatus
 		)
 		modelContext.insert(newTicket)
-		project.tickets.append(newTicket)
 		dismiss()
 	}
 }
