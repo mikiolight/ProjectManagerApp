@@ -2,7 +2,7 @@ import Foundation
 import SwiftData
 
 @Model
-public final class Project: Identifiable, Hashable, Equatable{
+public final class Project: Identifiable, Hashable {
 
 	@Attribute(.unique) public var id: UUID
 	var projectName: String
